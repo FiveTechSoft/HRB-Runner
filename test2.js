@@ -23,5 +23,5 @@ var hrb = new HRB();
 hrb.download("testhrb.hrb").then((v)=>{
     console.log(v);
     hrb.apply();
-    MAIN(23);
+    TEST(23);
 });
