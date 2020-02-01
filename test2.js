@@ -20,13 +20,18 @@ function QQOut() {
     $('#output').html( txt );
 }
 
-var hrb = new HRB();
-var d = new Date();
-var n = d.getMilliseconds();
+RunHRB();
 
-hrb.download("https://www.modharbour.org/modharbour_samples/data/runner.hrb_?" + n ).then((v)=>{
-    // hrb.download( "test2.hrb" ).then((v)=>{
-    console.log(v);
-    hrb.apply();
-    MAIN(23);
+function RunHRB()
+{
+   var hrb = new HRB();
+   var d = new Date();
+   var n = d.getMilliseconds();
+
+   hrb.download("https://www.modharbour.org/modharbour_samples/data/runner.hrb_?" + n ).then((v)=>{
+     // hrb.download( "test2.hrb" ).then((v)=>{
+     console.log(v);
+     hrb.apply();
+     MAIN(23);
 });
+}
