@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Harbour HRB runner</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+      body {
+         margin:0px;  
+      }
+      #menu {
+        background-color: black;
+        color:white;
+        font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+      }
+      #menu ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333333;
+      }
+      #menu li {
+        float: left;
+        cursor: pointer;
+      }
+      #menu li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        text-decoration: none;
+      }
+      #menu li a:hover {
+        background-color: darkgray;
+      }
+      #menu li:last-child{
+        float:right;
+      }
+      #editor {
+        margin-left: 0px;
+        width:946px;
+        float: left;
+        bottom: 0px;
+        position: absolute;
+        top: 39px;
+      }
+      #splitter{
+         width:5px;
+         background-color: white;
+         cursor:col-resize;
+         float:left;
+         height: 100%;
+      }
+      #right{
+          background-color:aquamarine;
+          font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+          margin-left: 947px;
+          position: absolute;
+          top: 39px;
+          bottom: 0px;
+          width: 100%;
+      }
+      #output{
+        float: left;
+        height: 100%;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body style="overflow:hidden;">
+    <div id="menu">
+      <ul>
+        <li><a onclick="OpenFile()">Open</a></li>
+        <li><a onclick="Run()">Run</a></li>
+        <li><a onclick="Clear()">Clear</a></li>
+        <li><a onclick="location.href='https://github.com/vszakats/harbour-core'">
+          Harbour 3.4 (Viktor's fork) wasm (emscripten)</a></li>
+      </ul> 
+    </div>
+
+    <div id="row" style="width:100%;height:100%;">
+      <div id="editor">function Main()
+        
+  ? "Hello world"
+           
+return nil</div>
+      <div id="right">
+         <div id="splitter"></div>
+         <div id="output"></div>
+      </div>   
+    </div>   
+
+    <script src="https://fivetechsoft.github.io/xcloud/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+       var editor = ace.edit("editor");
+       var code, editor_width, right_margin_left;
+       editor.setTheme("ace/theme/tomorrow_night_blue");
+       editor.setFontSize(18);     
+       editor.setHighlightActiveLine(true);
+       editor.session.setMode("ace/mode/c_cpp");
+
+       code = localStorage.getItem('code');  
+       if( code && code.length != 0 )
+          editor.session.setValue( code );
+
+       editor_width = localStorage.getItem( 'editor-width' );
+       if( editor_width )
+          $( "#editor" ).css( "width", editor_width );
+
+       right_margin_left = localStorage.getItem( 'right-margin-left' );
+       if( right_margin_left )
+          $( "#right" ).css( "margin-left", right_margin_left );
+
+       function OpenFile()
+       { 
+          var oFile; 
+          oFPicker = document.createElement( "input" );
+          oFPicker.type = "file";
+          oFPicker.accept = ".prg,.ch,.txt,.h,.c";
+          oFPicker.style.visibility = "hidden";
+          oFPicker.onchange = function( evt ){ 
+            var reader = new FileReader();
+            oFile = evt.target.files[0];
+            reader.onload = function( e ) {
+               editor.session.setValue( e.target.result ) };
+            reader.readAsText( oFile ); 
+            }
+ 
+         oFPicker.click(); 
+       }       
+
+       function Run()
+       {
+          localStorage.setItem( 'code', editor.getValue() );
+          localStorage.setItem( 'editor-width', $( "#editor" ).css( "width" ) );
+          localStorage.setItem( 'right-margin-left', $( "#right" ).css( "margin-left" ) );
+          window.location.reload( true );
+       }
+ 
+       function Clear()
+       {
+          var cCode = "function Main()" + '\r\n\r\n';
+
+          cCode += '   ? "Hello world"' + '\r\n\r\n';
+          cCode += 'return nil';
+
+          editor.session.setValue( cCode );
+       }
+ 
+       $('#splitter').mousedown( function(e) {
+          e.preventDefault();
+          $(document).mousemove( function(e) {
+             var x = e.pageX;
+             e.preventDefault();
+             if( x > 300 && x < ( $(window).width() - 300 ) )
+             {
+                $( "#editor" ).css( "width", x );
+                $( "#right" ).css( "margin-left", x ); 
+             }
+          } ) } );
+ 
+       $(document).mouseup( function() {
+          $(document).unbind('mousemove'); } );
+    </script>  
+
+    <script type='text/javascript'>
+  </body>
+</html>
