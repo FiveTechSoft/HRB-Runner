@@ -147,7 +147,7 @@ return nil</div>
           console.log( 'PARAM', o );
             
           $.post( "https://www.modharbour.org/modharbour_samples/buildhrb.prg", o )
-             .done( function( data ) { console.log( 'DONE', data ); $('#output').html( data ); } )
+             .done( function( data ) { console.log( 'DONE', data ); $('#output').html( data ); RunHRB(); } )
              .fail( function( data ) { console.log( 'ERROR', data ); } ); 
        }
  
