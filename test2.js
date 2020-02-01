@@ -16,7 +16,8 @@ function QQOut() {
         if(i>0) txt+=" ";
         txt+=arguments[i];
     }
-    dest.textContent = txt;
+    // dest.textContent = txt;
+    $('#result').html = txt;
 }
 
 var hrb = new HRB();
