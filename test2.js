@@ -21,7 +21,7 @@ function QQOut() {
 }
 
 var hrb = new HRB();
-hrb.download("testhrb.hrb").then((v)=>{
+hrb.download("test.hrb").then((v)=>{
     console.log(v);
     hrb.apply();
     MAIN(23);
