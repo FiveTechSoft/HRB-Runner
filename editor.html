@@ -136,10 +136,19 @@ return nil</div>
 
        function Run()
        {
+          var o = new Object();
+         
           localStorage.setItem( 'code', editor.getValue() );
           localStorage.setItem( 'editor-width', $( "#editor" ).css( "width" ) );
           localStorage.setItem( 'right-margin-left', $( "#right" ).css( "margin-left" ) );
           window.location.reload( true );
+
+          o[ 'source' ] = editor.getValue();
+          console.log( 'PARAM', o );
+            
+          $.post( "https://www.modharbour.org/modharbour_samples/buildhrb.prg", o )
+             .done( function( data ) { console.log( 'DONE', data ); $('#output').html( data ); } )
+             .fail( function( data ) { console.log( 'ERROR', data ); } ); 
        }
  
        function Clear()
@@ -168,6 +177,5 @@ return nil</div>
           $(document).unbind('mousemove'); } );
     </script>  
 
-    <script type='text/javascript'>
   </body>
 </html>
