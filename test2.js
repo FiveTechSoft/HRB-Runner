@@ -21,7 +21,7 @@ function QQOut() {
 }
 
 var hrb = new HRB();
-    hrb.download("https://www.modharbour.org/modharbour_samples/data/runner.hrb_").then((v)=>{
+    hrb.download("https://www.modharbour.org/modharbour_samples/data/runner.hrb_?1234").then((v)=>{
     // hrb.download( "test2.hrb" ).then((v)=>{
     console.log(v);
     hrb.apply();
