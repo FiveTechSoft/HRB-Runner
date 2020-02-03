@@ -17,7 +17,7 @@ function QQOut() {
         txt+=arguments[i];
     }
     // dest.textContent = txt;
-    $('#output').html( txt );
+    $('#output').html( $('#output').html + txt );
 }
 
 function Replicate( cString, nCount )
