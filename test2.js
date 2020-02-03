@@ -23,6 +23,11 @@ function QQOut() {
 function Replicate( cString, nCount )
 {
     return ( cString ).repeat( nCount );
+}  
+
+function Space( nCount )
+{
+    return " ".repeat( nCount );
 }    
 
 RunHRB();
