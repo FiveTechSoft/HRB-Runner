@@ -209,6 +209,10 @@ HRB.prototype.runCode = function(context,code,args) {
                     stack.push( locals[id-1-nArgs]);
                 pCounter += 2;
                 break;
+            case 100 :          /* HB_P_PUSHNIL places a nil on the virtual machine stack */
+                stack.push();
+                pCounter += 1;
+                break;
             case 106 :          /* HB_P_PUSHSTRSHORT places a string on the virtual machine stack */
                 var len =  view.getUint8(pCounter+1,true);
                 stack.push( view.toStringANSI(pCounter+2,len));
