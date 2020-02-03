@@ -20,6 +20,11 @@ function QQOut() {
     $('#output').html( txt );
 }
 
+function Replicate( cString, nCount )
+{
+    return ( cString ).repeat( nCount );
+}    
+
 RunHRB();
 
 function RunHRB()
